@@ -30,9 +30,10 @@
 
 #### Planned Support For:
 <div style="display:flex">
-  <img style="margin-right: 30px;" src="./assets/images/trax-logo.svg" alt="Image 1" width="150" height="30"/>
-  <img style="margin-right: 30px;" src="./assets/images/lcs-logo.png" alt="Image 1" width="150" height="30"/>
-  <img style="margin-right: 30px;" src="./assets/images/rider-logo.png" alt="Image 1" width="120" />
+  <img style="margin-right: 30px;" src="./assets/images/trax-logo.svg" alt="Image 1" width="150"/>
+  <img style="margin-right: 30px;" src="./assets/images/lcs-logo.png" alt="Image 1" width="120" height="50"/>
+  <img style="margin-right: 30px;" src="./assets/images/rider-logo.png" alt="Image 1" width="120" height="50" />
+  <img style="margin-right: 30px" src="./assets/images/dhl-logo.png" alt="DHL" width="150"/>
 </div>
 #### Introduction
 Welcome to SwiftShip, your gateway to effortless courier company integration within the Laravel ecosystem.
