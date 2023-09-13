@@ -8,16 +8,22 @@ use zfhassaan\swiftship\SwiftShip;
 class SwiftShipServiceProvider extends ServiceProvider
 {
     /**
-     * Bootstrap the application Services.
+     * Bootstrap the application services.
      */
     public function boot(): void
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
                 __DIR__.'/../../config/SwiftShipConfig.php'  => config_path('swiftship.php'),
-            ], 'config');
+            ], 'swift-ship-config');
+
+            $this->publishes([
+                __DIR__.'/../../tests/Couriers/TCSTest.php'  => base_path('tests/Unit/SwiftTCSTest.php'),
+                __DIR__.'/../../tests/SwiftShipTest.php'  => base_path('tests/Unit/SwiftShipTest.php'),
+            ], 'tests');
         }
     }
+
 
     /**
      * Register the application services.
@@ -28,7 +34,7 @@ class SwiftShipServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__ . '/../../config/SwiftShipConfig.php', 'swiftship');
 
         // Register the main class to use with the facade
-        $this->app->singleton('payfast', function () {
+        $this->app->singleton('swiftship', function () {
             return new SwiftShip();
         });
     }

@@ -2,6 +2,7 @@
 
 namespace zfhassaan\swiftship\Couriers\TCS;
 
+use GuzzleHttp\Promise\PromiseInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Http;
@@ -25,7 +26,7 @@ class TCSClient implements CourierClientInterface
         $this->trackingUrl = config('swiftship.tcs_tracking_url','');
     }
 
-    public function trackShipment($trackingNumber)
+    public function trackShipment($trackingNumber): PromiseInterface|JsonResponse|\Illuminate\Http\Client\Response
     {
         try {
             $result = Http::withHeaders([

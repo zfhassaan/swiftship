@@ -3,9 +3,7 @@
   <img src="./assets/images/swiftship.jpeg" alt="SwiftShip Laravel Package" width="150"/><br/>
 </p>
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/zfhassaan/easypaisa.svg?style=flat-square)](https://packagist.org/packages/zfhassaan/easypaisa)
 [![MIT Licensed](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
-[![Total Downloads](https://img.shields.io/packagist/dt/zfhassaan/easypaisa.svg?style=flat-square)](https://packagist.org/packages/zfhassaan/easypaisa)
 
 # SwiftShip
 ### Supported Companies
@@ -26,29 +24,68 @@
 * Please be aware that this project is in an active development phase and may undergo changes and updates.
 * We have plans to integrate multiple shipping services in future releases, allowing for parallel usage and expanded functionality.
 
-### Planned Support For:
+#### Planned Support For:
   <img style="margin-right: 30px;" src="./assets/images/trax-logo.svg" alt="Image 1" width="150"/>
 
-### Introduction
+#### Introduction
 Welcome to SwiftShip, your gateway to effortless courier company integration within the Laravel ecosystem.
 Seamlessly connect with top-tier shipping services like TCS, DHL, LCS, Trax, and Leopard, all designed to supercharge your shipping operations. Experience real-time tracking, cost optimization, and an intuitive interface, all wrapped in a package built to elevate your eCommerce or logistics platform. Join us on the journey to a faster, more efficient shipping experience, with SwiftShipLaravel as your trusted partner.
 
-### Intended Audience
+#### Intended Audience
 SwiftShipLaravel is tailored for Laravel developers, eCommerce businesses, and logistics professionals seeking efficient courier company integration. Whether you're a seasoned developer looking to streamline shipping services or an organization aiming to enhance your logistics operations, our package is designed to meet your needs. Explore the capabilities of SwiftShipLaravel and elevate your shipping experience today.
 The package only uses the COD apis for booking the courier and tracking.
 
-### Requirements
-The following are required fields from service which you need to collect the information: 
+#### Requirements
 
-* Tcs: 
-    * X-IBM-Client-Id
-    * userName
-    * Password
+Before utilizing the SwiftShip Laravel Package, ensure you have the necessary information from your chosen courier service. Here are the required fields for TCS:
 
-### Usage
-All couriers will have this format ```ServiceNameClient``` such as ```LCSClient``` or ```TCSClient```.
+- X-IBM-Client-Id
+- userName
+- Password
+
+#### Installation
+
+You can effortlessly install the package using the following Laravel Composer command:
+
+```bash
+composer require zfhassaan/swiftship
+```
+
+Next, add the SwiftShip service provider to your `config/app.php` file:
+
 ```php
+/*
+ * Package Service Providers...
+ */
+...
+\zfhassaan\swiftship\Provider\SwiftShipServiceProvider::class,
+...
+```
 
+In the same `config/app.php` file, under the 'aliases' section, add the SwiftShip alias:
+
+```php 
+...
+'aliases' => Facade::defaultAliases()->merge([
+    ...
+    'SwiftShip' => \zfhassaan\swiftship\Facade\SwiftShipFacade::class,
+])->toArray(),
+...
+```
+
+Once these steps are completed, publish the configuration file to your Laravel application:
+
+```bash 
+php artisan vendor:publish --tag=swift-ship-config
+```
+
+#### Usage
+
+To use the SwiftShip Laravel Package, ensure you declare all the required environment variables for your selected courier service. Currently, only TCS is supported for creating COD orders with a value of 0 or a specified amount. The package also includes a comprehensive tracking system for TCS.
+
+Each courier service follows the naming convention of `ServiceNameClient`, such as `LCSClient` or `TCSClient`. Here's an example of Creating a TCS shipment:
+
+```php
 use zfhassaan\SwiftShip\SwiftShip;
 use zfhassaan\SwiftShip\Couriers\LCS\LCSClient;
 
@@ -56,21 +93,35 @@ class YourController extends Controller
 {
     public function TrackLCSShipment($trackingNumber)
     {
-        // Create an instance of the Service You want to use. e.g. LCSClient / TCSClient or something-else.
-        $lcsClient = new LCSClient();
-
-        // Set the LCSClient as the selected courier client
-        (new \zfhassaan\swiftship\SwiftShip())->setCourierClient($lcsClient);
-
-        // Now you can track the LCS shipment
-        $trackingInfo = (new \zfhassaan\swiftship\SwiftShip())->trackShipment(string $trackingNumber);
-
-        // Process and return the tracking information
-        return view('tracking', ['trackingInfo' => $trackingInfo]);
+        $swiftShip = new SwiftShip();
+        $courier = $swiftShip->setCourierClient(new TCSClient());
+        $result =  $swiftShip->createBooking($request->all());
+        return json_decode($result);
     }
 }
-
 ```
+
+##### Tracking Orders:
+
+To track orders, here's an example using the TCS courier client:
+
+```php
+use zfhassaan\swiftship\Couriers\TCS\TCSClient;
+use zfhassaan\swiftship\SwiftShip;
+
+class YourController extends Controller
+{
+    public function index(Request $request)
+    {
+        $swiftShip = new SwiftShip();
+        $courier = $swiftShip->setCourierClient(new TCSClient());
+        $result = $swiftShip->trackShipment($request->consignmentNo);
+        return json_decode($result);
+    }
+}
+```
+
+Now, you're all set to leverage the SwiftShip Laravel Package for streamlined courier integration and order tracking in your Laravel application.
 #### Shipping Calculation
 
 **Shipping Fee Formula:**
