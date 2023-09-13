@@ -79,6 +79,18 @@ Once these steps are completed, publish the configuration file to your Laravel a
 php artisan vendor:publish --tag=swift-ship-config
 ```
 
+``.env`` variables to be used: 
+
+```bash 
+# SWIFTSHIP COURIER PACKAGE
+SWIFTSHIP_TCS_CLIENT_ID=
+SWIFTSHIP_TCS_BASE_URL=
+SWIFTSHIP_TCS_USERNAME=
+SWIFTSHIP_TCS_PASSWORD=
+SWIFTSHIP_TCS_TRACKING_URL=
+```
+
+
 #### Usage
 
 To use the SwiftShip Laravel Package, ensure you declare all the required environment variables for your selected courier service. Currently, only TCS is supported for creating COD orders with a value of 0 or a specified amount. The package also includes a comprehensive tracking system for TCS.
