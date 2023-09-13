@@ -14,16 +14,13 @@
 
 <p align="center">
   <img src="https://www.tcsexpress.com/TCS.svg" alt="Image 2" width="150"/>
-
-[//]: # (  <img src="./assets/images/image3.jpeg" alt="Image 3" width="150"/>)
-
-[//]: # (  <img src="./assets/images/image4.jpeg" alt="Image 4" width="150"/>)
 </p>
 
 
 
 ### Disclaimer
 * This software package is unofficial and is not endorsed or affiliated with any official shipping service.
+* Initially All the services will support creating a COD booking and tracking.
 * It is designed for single-service integration only; multiservice functionality is not currently enabled.
 * Please be aware that this project is in an active development phase and may undergo changes and updates.
 * We have plans to integrate multiple shipping services in future releases, allowing for parallel usage and expanded functionality.
@@ -35,6 +32,7 @@
   <img style="margin-right: 100px;" src="./assets/images/rider-logo.png" alt="Image 1" width="120" height="50" />
   <img style="margin-right: 100px" src="./assets/images/dhl-logo.png" alt="DHL" width="150"/>
 </div>
+
 #### Introduction
 Welcome to SwiftShip, your gateway to effortless courier company integration within the Laravel ecosystem.
 Seamlessly connect with top-tier shipping services like TCS, DHL, LCS, Trax, and Leopard, all designed to supercharge your shipping operations. Experience real-time tracking, cost optimization, and an intuitive interface, all wrapped in a package built to elevate your eCommerce or logistics platform. Join us on the journey to a faster, more efficient shipping experience, with SwiftShipLaravel as your trusted partner.

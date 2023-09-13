@@ -3,9 +3,9 @@
     "description": "SwiftShip is the essential courier company integration package for Laravel, empowering your eCommerce or logistics platform with seamless connections to major carriers like TCS, DHL, LCS, TRAX, and Leopard. Elevate your shipping operations, provide real-time tracking, optimize shipping costs, and enhance customer satisfaction effortlessly within your Laravel environment. Supercharge your business, streamline workflows, and offer lightning-fast, reliable shipping services, all while boosting your brand's reputation. SwiftShipLaravel is your one-stop solution for efficient, hassle-free courier integration.",
     "type": "library",
     "require": {
-        "guzzlehttp/guzzle": "7.9.x-dev",
+        "guzzlehttp/guzzle": "7.8.0.*",
         "php": "^8.1",
-        "phpunit/phpunit": "10.4.x-dev"
+        "phpunit/phpunit": "10.3.4.*"
     },
     "license": "GPL-3.0",
     "autoload": {
