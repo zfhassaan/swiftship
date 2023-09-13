@@ -87,7 +87,7 @@ Each courier service follows the naming convention of `ServiceNameClient`, such 
 
 ```php
 use zfhassaan\SwiftShip\SwiftShip;
-use zfhassaan\SwiftShip\Couriers\LCS\LCSClient;
+use zfhassaan\SwiftShip\Couriers\TCS\TCSClient;
 
 class YourController extends Controller
 {
