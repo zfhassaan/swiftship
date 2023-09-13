@@ -3,6 +3,7 @@
   <img src="./assets/images/swiftship.jpeg" alt="SwiftShip Laravel Package" width="150"/><br/>
 </p>
 
+
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/zfhassaan/swiftship.svg?style=flat-square)](https://packagist.org/packages/zfhassaan/payfast)
 [![MIT Licensed](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
 [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fzfhassaan%2Fswiftship&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
