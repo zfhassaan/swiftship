@@ -19,7 +19,7 @@ class Helper
      * @return null
      * @noinspection PhpVoidFunctionResultUsedInspection
      */
-    public static function LogData($channel,$identifier,$data)
+    public function LogData($channel,$identifier,$data)
     {
         // Check if the specified channel exists in the logging configuration
         if (!config("logging.channels.$channel")) {

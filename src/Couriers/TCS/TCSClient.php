@@ -26,6 +26,10 @@ class TCSClient implements CourierClientInterface
         $this->trackingUrl = config('swiftship.tcs_tracking_url','');
     }
 
+    /**
+     * @param $trackingNumber
+     * @return PromiseInterface|JsonResponse|\Illuminate\Http\Client\Response
+     */
     public function trackShipment($trackingNumber): PromiseInterface|JsonResponse|\Illuminate\Http\Client\Response
     {
         try {
@@ -42,6 +46,22 @@ class TCSClient implements CourierClientInterface
         }
     }
 
+    /**
+     * To order a COD shipment and get a reference number from TCS Pakistan Service.
+     * The service can return the following Responses:
+     *
+     * Code: 0200 => The Operation was successful
+     * Code: 0401 => Unauthorized
+     * Code: 0404 => Not Found
+     * Code: 0405 => Method Not Allowed
+     * Code: 0406 => Not Acceptable
+     * Code: 0429 => Too Many Requests
+     * Code: 0500 => Internal Server Error
+     * Code: 0503 => Service Unavailable
+     *
+     * @param array $data
+     * @return string|JsonResponse
+     */
     public function createBooking(array $data): string|JsonResponse
     {
         try {
@@ -63,7 +83,7 @@ class TCSClient implements CourierClientInterface
                 [
                     'consigneeName.required' => 'Consignee Name is required',
                     'consigneeName.string' => 'Consignee Name should be string',
-                    'consigneeAddress.required' => 'Consiagnee Address is required',
+                    'consigneeAddress.required' => 'Consignee Address is required',
                     'consigneeAddress.string' => 'Consignee Address should be string',
                     'consigneeMobNo.required' => 'Consignee Mobile Number is required',
                     'consigneeMobNo.string' => 'Consignee Mobile Number should be string.',
@@ -100,6 +120,103 @@ class TCSClient implements CourierClientInterface
 
             (new Helper())->LogData('swiftship',' Create Booking API Response ', json_decode($result->body()));
             return $result->body();
+        } catch(\Exception $e)
+        {
+            return (new Helper())->failure($e->getMessage());
+        }
+    }
+
+    /**
+     * To cancel C.O.D shipments by your reference number.
+     *
+     * @param $consignmentNumber
+     * @return PromiseInterface|JsonResponse|\Illuminate\Http\Client\Response
+     */
+    public function cancelBooking($consignmentNumber): PromiseInterface|JsonResponse|\Illuminate\Http\Client\Response
+    {
+        try {
+            $result = Http::withHeaders([
+                'X-IBM-Client-Id' => $this->client_id,
+                'Content-Type' => 'application/json'
+            ])->put($this->url.'cancel-order');
+
+            return (new Helper())->success($result);
+        } catch(\Exception $e) {
+            return (new Helper())->failure($e->getMessage());
+        }
+    }
+
+    public function ReverseLogistics($request): JsonResponse
+    {
+        try {
+            $result = Http::withHeaders([
+                'X-IBM-Client-Id' => $this->client_id,
+                'Content-Type' => 'application/json'
+            ])->post($this->url.'reverse-logistics');
+
+            (new Helper())->LogData('swiftship', 'Reverse Logistics', $result);
+
+            return (new Helper())->success($result);
+        } catch(\Exception $e)
+        {
+            return (new Helper())->failure($e->getMessage());
+        }
+    }
+
+    /**
+     * This API is used to get TCS shipment country codes list with description.
+     * @return JsonResponse
+     */
+    public function CountriesList(): JsonResponse
+    {
+        try {
+            $result = Http::withHeaders([
+                'X-IBM-Client-Id' => $this->client_id,
+                'Content-Type' => 'application/json'
+            ])->get($this->url.'countries');
+
+            (new Helper())->LogData('swiftship','Countries List', $result);
+
+            return (new Helper())->success($result);
+        } catch(\Exception $e)
+        {
+            return (new Helper())->failure($e->getMessage());
+        }
+    }
+
+    /**
+     * This API is used to get TCS shipment origin/station codes list with description.
+     *
+     * @return JsonResponse
+     */
+    public function OriginsList(): JsonResponse
+    {
+        try {
+            $result = Http::withHeaders([
+                'X-IBM-Client-Id' => $this->client_id,
+                'Content-Type' => 'application/json'
+            ])->get($this->url.'origins');
+
+            (new Helper())->LogData('swiftship','Origins list', $result);
+
+            return (new Helper())->success($result);
+        } catch(\Exception $e)
+        {
+            return (new Helper())->failure($e->getMessage());
+        }
+    }
+
+    public function GetCities(): JsonResponse
+    {
+        try {
+            $result = Http::withHeaders([
+                'X-IBM-Client-Id' => $this->client_id,
+                'Content-Type' => 'application/json'
+            ])->get($this->url.'cities');
+
+            (new Helper())->LogData('swiftship', 'Cities List', $result);
+
+            return (new Helper())->success($result);
         } catch(\Exception $e)
         {
             return (new Helper())->failure($e->getMessage());
