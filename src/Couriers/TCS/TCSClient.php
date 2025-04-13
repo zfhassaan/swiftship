@@ -109,7 +109,7 @@ class TCSClient implements CourierClientInterface
                 ]);
 
             if ($validator->fails()) {
-                return (new Helper())->failure($validator->errors()->toArray());
+                return (new Helper())->failure('Validation Error', $validator->errors()->toArray());
             }
 
             $result = Http::withHeaders([
@@ -117,11 +117,10 @@ class TCSClient implements CourierClientInterface
                 'Content-Type' => 'application/json'
             ])->post($this->url.'create-order',$data);
 
-            (new Helper())->LogData('swiftship',' Create Booking API Response ', json_decode($result->body()));
-            return $result->body();
+            return Helper::success('Booking Response: ', $result->json());
         } catch(\Exception $e)
         {
-            return (new Helper())->failure($e->getMessage());
+            return (new Helper())->failure($e->getMessage(), $e->getCode());
         }
     }
 
@@ -139,9 +138,9 @@ class TCSClient implements CourierClientInterface
                 'Content-Type' => 'application/json'
             ])->put($this->url.'cancel-order');
 
-            return (new Helper())->success($result);
+            return (new Helper())->success('success',$result);
         } catch(\Exception $e) {
-            return (new Helper())->failure($e->getMessage());
+            return (new Helper())->failure($e->getMessage(), $e->getCode());
         }
     }
 
@@ -155,7 +154,7 @@ class TCSClient implements CourierClientInterface
 
             (new Helper())->LogData('swiftship', 'Reverse Logistics', $result);
 
-            return (new Helper())->success($result);
+            return (new Helper())->success('Success',$result);
         } catch(\Exception $e)
         {
             return (new Helper())->failure($e->getMessage());
@@ -174,9 +173,7 @@ class TCSClient implements CourierClientInterface
                 'Content-Type' => 'application/json'
             ])->get($this->url.'countries');
 
-            (new Helper())->LogData('swiftship','Countries List', $result);
-
-            return (new Helper())->success($result);
+            return (new Helper())->success('Success',$result->json());
         } catch(\Exception $e)
         {
             return (new Helper())->failure($e->getMessage());
@@ -196,12 +193,10 @@ class TCSClient implements CourierClientInterface
                 'Content-Type' => 'application/json'
             ])->get($this->url.'origins');
 
-            (new Helper())->LogData('swiftship','Origins list', $result);
-
-            return (new Helper())->success($result);
+            return (new Helper())->success('success', $result);
         } catch(\Exception $e)
         {
-            return (new Helper())->failure($e->getMessage());
+            return (new Helper())->failure($e->getMessage(), $e->getCode());
         }
     }
 
@@ -215,15 +210,70 @@ class TCSClient implements CourierClientInterface
 
             (new Helper())->LogData('swiftship', 'Cities List', $result);
 
-            return (new Helper())->success($result);
+            return (new Helper())->success('Success',  $result);
         } catch(\Exception $e)
         {
-            return (new Helper())->failure($e->getMessage());
+            return (new Helper())->failure($e->getMessage(), $e->getCode());
         }
     }
 
     public function getSelectedCourierClient()
     {
         // TODO: Implement getSelectedCourierClient() method.
+    }
+
+    /**
+     * @param array $orders
+     * @return mixed
+     */
+    public function BatchBookPackets(array $orders)
+    {
+        // TODO: Implement BatchBookPackets() method.
+    }
+
+    /**
+     * @param array $cn_numbers
+     * @return mixed
+     */
+    public function GenerateLoadSheet(array $cn_numbers)
+    {
+        // TODO: Implement GenerateLoadSheet() method.
+    }
+
+    /**
+     * @param array $data
+     * @return mixed
+     */
+    public function createShipper(array $data)
+    {
+        // TODO: Implement createShipper() method.
+    }
+
+    /**
+     * @param array $data
+     * @return mixed
+     */
+    public function downloadLoadSheet(array $data)
+    {
+        // TODO: Implement downloadLoadSheet() method.
+    }
+
+    /**
+     * @param string $fromDate
+     * @param string $toDate
+     * @return mixed
+     */
+    public function getBookedPacketLastStatuses(string $fromDate, string $toDate)
+    {
+        // TODO: Implement getBookedPacketLastStatuses() method.
+    }
+
+    /**
+     * @param array $filters
+     * @return mixed
+     */
+    public function getShipperAdviceList(array $filters)
+    {
+        // TODO: Implement getShipperAdviceList() method.
     }
 }

@@ -5,6 +5,8 @@ namespace Zfhassaan\SwiftShip\Utility;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Response as FacadeResponse;
+
 
 class Helper
 {
@@ -53,5 +55,24 @@ class Helper
             'message' => $message,
             'data' => $data
         ],$status);
+    }
+
+    public static function download(string $binaryContent, string $filename = 'file.pdf'): \Symfony\Component\HttpFoundation\BinaryFileResponse
+    {
+        $tempPath = storage_path('app/temp/' . $filename);
+
+        // Ensure temp folder exists
+        if (!file_exists(dirname($tempPath))) {
+            mkdir(dirname($tempPath), 0755, true);
+        }
+
+        file_put_contents($tempPath, $binaryContent);
+
+        self::LogData('swiftship', ' Download ', $filename);
+
+        return FacadeResponse::download($tempPath, $filename, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="' . basename($filename) . '"',
+        ]);
     }
 }

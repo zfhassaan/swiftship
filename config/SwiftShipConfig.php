@@ -17,5 +17,8 @@ return [
         'lcs_tracking_url' => env('SWIFTSHIP_LCS_TRACKING_URL', ''),
         'lcs_api_key' => env('SWIFTSHIP_LCS_API_KEY',''),
         'lcs_api_version' => env('SWIFTSHIP_LCS_API_VERSION','v1'),
+        'lcs_courier_name' => env('SWIFTSHIP_LCS_COURIER_NAME',''),
+        'lcs_courier_code' => env('SWIFTSHIP_LCS_COURIER_CODE','')
+
     ]
 ];

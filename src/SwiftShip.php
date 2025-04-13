@@ -95,6 +95,14 @@ class SwiftShip implements CourierClientInterface
         return $this->selectedCourierClient->CountriesList();
     }
 
+    /**
+     * @param array $data
+     */
+    public function downloadLoadSheet(array $data)
+    {
+        return $this->selectedCourierClient->downloadLoadSheet($data);
+    }
+
     public function OriginsList()
     {
         // TODO: Implement OriginsList() method.
@@ -119,5 +127,92 @@ class SwiftShip implements CourierClientInterface
     public function BatchBookPackets(array $orders): JsonResponse
     {
         return $this->selectedCourierClient->BatchBookPackets($orders);
+    }
+
+    /**
+     * @param array $cn_numbers
+     * @return JsonResponse
+     */
+    public function GenerateLoadSheet(array $cn_numbers): JsonResponse
+    {
+        return $this->selectedCourierClient->GenerateLoadSheet($cn_numbers);
+    }
+
+    public function createShipper(array $data)
+    {
+        return $this->selectedCourierClient->createShipper($data);
+    }
+
+
+    /**
+     * @param string $fromDate
+     * @param string $toDate
+     * @return JsonResponse
+     */
+    public function getBookedPacketLastStatuses(string $fromDate, string $toDate): JsonResponse
+    {
+        return $this->selectedCourierClient->getBookedPacketLastStatuses($fromDate, $toDate);
+    }
+
+    /**
+     * @param array $filters
+     */
+    public function getShipperAdviceList(array $filters): JsonResponse
+    {
+        return $this->selectedCourierClient->getShipperAdviceList($filters);
+    }
+
+    /**
+     * @param array $filters
+     * @return mixed
+     */
+    public function getShipmentDetailsByOrderID(array $filters): mixed
+    {
+        return $this->selectedCourierClient->getShipmentDetailsByOrderID($filters);
+    }
+
+    public function getAllBanks()
+    {
+        return $this->selectedCourierClient->getAllBanks();
+    }
+
+    public function getPaymentDetails(array $cn_numbers)
+    {
+        return $this->selectedCourierClient->getPaymentDetails($cn_numbers);
+    }
+
+    public function getTariffDetails(array $filters)
+    {
+        return $this->selectedCourierClient->getTariffDetails($filters);
+    }
+
+    public function getShippingCharges(array $filters)
+    {
+        return $this->selectedCourierClient->getShippingCharges($filters);
+    }
+
+    public function getShipperDetails(array $filters)
+    {
+        return $this->selectedCourierClient->getShipperDetails($filters);
+    }
+
+    public function getElectronicPOD(array $cn_numbers)
+    {
+        return $this->selectedCourierClient->getElectronicPOD($cn_numbers);
+    }
+
+    public function getShipperAdviceListPaginated(array $filters)
+    {
+        return $this->selectedCourierClient->getShipperAdviceListPaginated($filters);
+    }
+
+    public function getActivityLog(array $filters)
+    {
+        return $this->selectedCourierClient->getActivityLog($filters);
+    }
+
+    public function updateShipperAdvice(array $payload)
+    {
+        return $this->selectedCourierClient->updateShipperAdvice($payload);
     }
 }
