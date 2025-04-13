@@ -3,8 +3,8 @@
 namespace Tests\Unit;
 
 use Illuminate\Support\Facades\Request;
-use zfhassaan\swiftship\Couriers\TCS\TCSClient;
-use zfhassaan\swiftship\SwiftShip;
+use Zfhassaan\Swiftship\Couriers\LCS\TCS\TCSClient;
+use Zfhassaan\SwiftShip\SwiftShip;
 
 class TCSTest
 {

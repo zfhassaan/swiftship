@@ -1,14 +1,14 @@
 <?php
 
-namespace zfhassaan\swiftship\Couriers\TCS;
+namespace Zfhassaan\Swiftship\Couriers\TCS;
 
 use GuzzleHttp\Promise\PromiseInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Http;
-use zfhassaan\swiftship\Interface\CourierClientInterface;
+use Zfhassaan\SwiftShip\Interface\CourierClientInterface;
 use Illuminate\Support\Facades\Validator;
-use zfhassaan\swiftship\Utility\Helper;
+use Zfhassaan\SwiftShip\Utility\Helper;
 
 class TCSClient implements CourierClientInterface
 {
@@ -39,8 +39,7 @@ class TCSClient implements CourierClientInterface
             ])->get($this->trackingUrl.'?'.http_build_query([
                     'ConsignmentNo' => $trackingNumber
                 ]));
-            (new Helper())->success($result);
-            return $result;
+            return (new Helper())->success('Success', $result);
         } catch(\Exception $e) {
             return (new Helper())->failure($e->getMessage());
         }
@@ -221,5 +220,10 @@ class TCSClient implements CourierClientInterface
         {
             return (new Helper())->failure($e->getMessage());
         }
+    }
+
+    public function getSelectedCourierClient()
+    {
+        // TODO: Implement getSelectedCourierClient() method.
     }
 }

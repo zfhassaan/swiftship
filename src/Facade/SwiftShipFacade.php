@@ -1,6 +1,6 @@
 <?php
 
-namespace zfhassaan\swiftship\Facade;
+namespace Zfhassaan\SwiftShip\Facade;
 
 use Illuminate\Support\Facades\Facade;
 

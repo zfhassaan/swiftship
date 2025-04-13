@@ -64,7 +64,7 @@ Next, add the SwiftShip service provider to your `config/app.php` file:
  * Package Service Providers...
  */
 ...
-\zfhassaan\swiftship\Provider\SwiftShipServiceProvider::class,
+\Zfhassaan\SwiftShip\Provider\SwiftShipServiceProvider::class,
 ...
 ```
 
@@ -104,8 +104,8 @@ To use the SwiftShip Laravel Package, ensure you declare all the required enviro
 Each courier service follows the naming convention of `ServiceNameClient`, such as `LCSClient` or `TCSClient`. Here's an example of Creating a TCS shipment:
 
 ```php
-use zfhassaan\SwiftShip\SwiftShip;
-use zfhassaan\SwiftShip\Couriers\TCS\TCSClient;
+use Zfhassaan\SwiftShip\SwiftShip;
+use Zfhassaan\Swiftship\Couriers\LCS\TCS\TCSClient;
 
 class YourController extends Controller
 {
@@ -124,8 +124,8 @@ class YourController extends Controller
 To track orders, here's an example using the TCS courier client:
 
 ```php
-use zfhassaan\swiftship\Couriers\TCS\TCSClient;
-use zfhassaan\swiftship\SwiftShip;
+use Zfhassaan\Swiftship\Couriers\LCS\TCS\TCSClient;
+use Zfhassaan\SwiftShip\SwiftShip;
 
 class YourController extends Controller
 {

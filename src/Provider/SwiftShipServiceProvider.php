@@ -1,9 +1,9 @@
 <?php
 
-namespace zfhassaan\swiftship\Provider;
+namespace Zfhassaan\SwiftShip\Provider;
 
 use Illuminate\Support\ServiceProvider;
-use zfhassaan\swiftship\SwiftShip;
+use Zfhassaan\SwiftShip\SwiftShip;
 
 class SwiftShipServiceProvider extends ServiceProvider
 {

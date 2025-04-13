@@ -13,6 +13,13 @@
             "Zfhassaan\\Swiftship\\": "src/"
         }
     },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Zfhassaan\\SwiftShip\\Provider\\SwiftShipServiceProvider"
+            ]
+        }
+    },
     "authors": [
         {
             "name": "Hassaan Ali",

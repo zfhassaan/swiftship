@@ -1,11 +1,10 @@
 <?php
 
-namespace zfhassaan\swiftship\Utility;
+namespace Zfhassaan\SwiftShip\Utility;
 
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
-use Symfony\Component\HttpFoundation\Response as ResponseAlias;
+use Symfony\Component\HttpFoundation\Response;
 
 class Helper
 {
@@ -17,9 +16,8 @@ class Helper
      * @param $identifier
      * @param $data
      * @return null
-     * @noinspection PhpVoidFunctionResultUsedInspection
      */
-    public function LogData($channel,$identifier,$data)
+    public static function LogData($channel,$identifier,$data): null
     {
         // Check if the specified channel exists in the logging configuration
         if (!config("logging.channels.$channel")) {
@@ -32,25 +30,28 @@ class Helper
             // Reconfigure the logger with the new channel
             Log::channel($channel);
         }
-
-        return Log::channel($channel)->info('===== ' . $identifier . '====== ' . json_encode($data));
+        Log::channel($channel)->info('===== ' . $identifier . '====== ' . json_encode($data));
+        return null;
     }
-    public function success($data): JsonResponse
+    public static function success($message, $data, $status = Response::HTTP_OK): JsonResponse
     {
+        self::LogData('swiftship',' Success ', $data);
         return response()->json([
             'status' => true,
-            'code' => ResponseAlias::HTTP_OK,
-            'message' => $data
-        ]);
+            'code' => Response::HTTP_OK,
+            'message' => $message,
+            'data' => $data,
+        ], Response::HTTP_OK);
     }
 
-    public function failure($data, $code = ResponseAlias::HTTP_INTERNAL_SERVER_ERROR): JsonResponse
+    public static function failure($message, $data = [], $code = Response::HTTP_UNPROCESSABLE_ENTITY, $status = Response::HTTP_UNPROCESSABLE_ENTITY): JsonResponse
     {
-        self::LogData('swiftship',' Failure Caused ', $data);
+        self::LogData('swiftship',' Failure ', $data);
         return response()->json([
             'status' => false,
             'code' => $code,
-            'message' => $data
-        ]);
+            'message' => $message,
+            'data' => $data
+        ],$status);
     }
 }
