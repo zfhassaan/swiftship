@@ -276,4 +276,93 @@ class TCSClient implements CourierClientInterface
     {
         // TODO: Implement getShipperAdviceList() method.
     }
+
+    /**
+     * @param array $filters
+     * @return mixed
+     */
+    public function getShipmentDetailsByOrderID(array $filters)
+    {
+        // TODO: Implement getShipmentDetailsByOrderID() method.
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAllBanks()
+    {
+        // TODO: Implement getAllBanks() method.
+    }
+
+    /**
+     * @param array $cn_numbers
+     * @return mixed
+     */
+    public function getPaymentDetails(array $cn_numbers)
+    {
+        // TODO: Implement getPaymentDetails() method.
+    }
+
+    /**
+     * @param array $filters
+     * @return mixed
+     */
+    public function getTariffDetails(array $filters)
+    {
+        // TODO: Implement getTariffDetails() method.
+    }
+
+    /**
+     * @param array $filters
+     * @return mixed
+     */
+    public function getShippingCharges(array $filters)
+    {
+        // TODO: Implement getShippingCharges() method.
+    }
+
+    /**
+     * @param array $filters
+     * @return mixed
+     */
+    public function getShipperDetails(array $filters)
+    {
+        // TODO: Implement getShipperDetails() method.
+    }
+
+    /**
+     * @param array $cn_numbers
+     * @return mixed
+     */
+    public function getElectronicPOD(array $cn_numbers)
+    {
+        // TODO: Implement getElectronicPOD() method.
+    }
+
+    /**
+     * @param array $filters
+     * @return mixed
+     */
+    public function getShipperAdviceListPaginated(array $filters)
+    {
+        // TODO: Implement getShipperAdviceListPaginated() method.
+    }
+
+    /**
+     * @param array $filters
+     * @return mixed
+     */
+    public function getActivityLog(array $filters)
+    {
+        // TODO: Implement getActivityLog() method.
+    }
+
+    /**
+     * @param array $payload
+     * @return mixed
+     */
+    public function updateShipperAdvice(array $payload)
+    {
+        // TODO: Implement updateShipperAdvice() method.
+    }
 }

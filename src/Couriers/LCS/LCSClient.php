@@ -40,6 +40,49 @@ class LCSClient implements CourierClientInterface
     }
 
     /**
+     * Sends an HTTP request to the LCS API.
+     *
+     * Constructs the request URL, prepares the payload, and handles the response.
+     * Supports both JSON and non-JSON payloads and manages exceptions and error responses.
+     *
+     * @param string $endpoint The API endpoint to which the request is sent. This is appended to the base URL.
+     * @param string $method The HTTP method to be used for the request (e.g., 'GET', 'POST').
+     * @param array $data An associative array of data to be sent with the request. This data is merged with authentication credentials.
+     * @param bool $withJson A flag indicating whether the payload should be sent as JSON. Defaults to true.
+     *
+     * @return JsonResponse Returns a JSON response object. On success, it returns a response with a success message and data. On failure, it returns a response with an error message and code.
+     *
+     * @throws \Exception Throws an exception if the API gateway times out (HTTP 504).
+     */
+    protected function send(string $endpoint, string $method, array $data, bool $withJson = true): JsonResponse
+    {
+        try {
+            $url = $this->url . $endpoint . $this->format;
+            $payload = array_merge(['api_key' => $this->api, 'api_password' => $this->password], $data);
+            $response = Http::withHeaders(['Content-Type' => 'application/json'])
+                ->{$method}($url, $withJson ? $payload : $data);
+
+            if ($response->status() === Response::HTTP_GATEWAY_TIMEOUT) {
+                throw new \Exception('LCS API Gateway Timeout (504)');
+            }
+
+            $statusCode = $response->status();
+
+            if ($statusCode !== Response::HTTP_OK) {
+                $response = [
+                    'message' => 'Service Down or Invalid API Key',
+                    'code' => $statusCode,
+                ];
+                return Helper::failure('Service Response', $response, Response::HTTP_BAD_REQUEST);
+            }
+
+            return Helper::success('Success', $response->json());
+        } catch (\Throwable $e) {
+            return Helper::failure('API Exception', $e->getMessage());
+        }
+    }
+
+    /**
      * Retrieves a list of cities from the LCS API.
      *
      * This method sends a POST request to the LCS API to fetch all available cities.
@@ -145,7 +188,7 @@ class LCSClient implements CourierClientInterface
      * to determine the success or failure of the cancellation request.
      * payload:
      *  {
-     *      "consignment": "MM795354722,MM795354733,MM795354736,MM795354740"
+     *      "consignment": "MM123456789,MM132456789"
      *  }
      * @param string $consignmentNumber The consignment number to be canceled.
      *
@@ -373,7 +416,7 @@ class LCSClient implements CourierClientInterface
      *
      * ### Example Usage:
      * ```php
-     * $response = $swiftShip->GenerateLoadSheet(['LE750063736', 'LE750063737']);
+     * $response = $swiftShip->GenerateLoadSheet(['LE12345678', 'LE123456789']);
      * ```
      *
      * ### Expected Payload Sent:
@@ -728,7 +771,7 @@ class LCSClient implements CourierClientInterface
      * ```json
      * {
      *   "shipment_order_id": [
-     *     "27123091412936"
+     *     "123446789086"
      *   ]
      * }
      * ```
@@ -758,7 +801,7 @@ class LCSClient implements CourierClientInterface
      * ### Edge Cases:
      * - Handles single or multiple order IDs
      * - Throws specific error if API times out
-     * - Uses Laravel’s JSON client, may require `json_decode()` fallback if payload is too large
+     * - Uses Laravel JSON client, may require `json_decode()` fallback if payload is too large
      *
      * @param array $filters An array containing a `shipment_order_id` key with one or more values.
      * @return JsonResponse A success or failure JSON response containing shipment details or errors.
@@ -881,7 +924,7 @@ class LCSClient implements CourierClientInterface
      * {
      *   "cn_numbers": [
      *     "LE123456789",
-     *     "LE987654321"
+     *     "LE234512352"
      *   ]
      * }
      *
@@ -1013,7 +1056,7 @@ class LCSClient implements CourierClientInterface
      * {
      *   "cn_numbers": [
      *     "LE123456789",
-     *     "LE987654321"
+     *     "LE234523456"
      *   ]
      * }
      *
@@ -1551,19 +1594,20 @@ class LCSClient implements CourierClientInterface
         ];
     }
 
-    public function getSelectedCourierClient()
+    public function getSelectedCourierClient(): JsonResponse
     {
-        // TODO: Implement getSelectedCourierClient() method.
+        return Helper::failure('Not Supported for this Client...', '');
     }
 
-    public function ReverseLogistics($request)
+    public function ReverseLogistics($request): JsonResponse
     {
-        // TODO: Implement ReverseLogistics() method.
+        return Helper::failure('Not Supported for this Client...', '');
+
     }
 
-    public function OriginsList()
+    public function OriginsList(): JsonResponse
     {
-        // TODO: Implement OriginsList() method.
+        return Helper::failure('Not Supported for this Client...', '');
     }
 
 

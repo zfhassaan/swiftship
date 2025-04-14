@@ -12,11 +12,10 @@
 # SwiftShip
 ### Supported Companies
 
-<p align="center">
-  <img src="https://www.tcsexpress.com/TCS.svg" alt="Image 2" width="150"/>
-</p>
-
-
+<ul>
+  <li><a href="https://www.tcsexpress.com" target="_blank">TCS</a></li>
+  <li><a href="https://www.leopardscourier.com" target="_blank">Leopard Courier Service (LCS)</a></li>
+</ul>
 
 ### Disclaimer
 * This software package is unofficial and is not endorsed or affiliated with any official shipping service.
@@ -28,7 +27,8 @@
 #### Planned Support For:
 <div style="display:flex">
   <img style="margin-right: 100px;" src="./assets/images/trax-logo.svg" alt="Image 1" width="150"/>
-  <img style="margin-right: 100px;" src="./assets/images/lcs-logo.png" alt="Image 1" width="120" height="50"/>
+  <img src="https://www.tcsexpress.com/TCS.svg" alt="Image 2" width="150"/>
+  <img style="margin-right: 100px;blend-mode:color-burn;" src="./assets/images/lcs-logo.png" alt="Image 1" width="120" height="50"/>
   <img style="margin-right: 100px;" src="./assets/images/rider-logo.png" alt="Image 1" width="120" height="50" />
   <img style="margin-right: 100px" src="./assets/images/dhl-logo.png" alt="DHL" width="150"/>
 </div>
