@@ -10,6 +10,23 @@ use Zfhassaan\SwiftShip\Interface\CourierClientInterface;
 use Illuminate\Support\Facades\Validator;
 use Zfhassaan\SwiftShip\Utility\Helper;
 
+/*
+ * Overview:
+ * To test the complete set of product APIs and gain a better understanding of TCS API integration, visit:
+ * https://ociconnect.tcscourier.com/ecom/index.html
+ *
+ * Available APIs:
+ * Check the list of available APIs at: https://ociconnect.tcscourier.com/ecom/index.html
+ *
+ * Sandbox Access:
+ * Below is the link for UAT and production portals:
+ * https://devconnect.tcscourier.com/ecom/index.html
+ *
+ * Production Access:
+ * If you need production access, you must proceed with the successful UAT phase.
+ * Please note that production access approval/setup will take at least three working days.
+ * https://ociconnect.tcscourier.com/ecom/index.html
+ */
 class TCSClient implements CourierClientInterface
 {
     protected mixed $url;
@@ -275,5 +292,94 @@ class TCSClient implements CourierClientInterface
     public function getShipperAdviceList(array $filters)
     {
         // TODO: Implement getShipperAdviceList() method.
+    }
+
+    /**
+     * @param array $filters
+     * @return mixed
+     */
+    public function getShipmentDetailsByOrderID(array $filters)
+    {
+        // TODO: Implement getShipmentDetailsByOrderID() method.
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAllBanks()
+    {
+        // TODO: Implement getAllBanks() method.
+    }
+
+    /**
+     * @param array $cn_numbers
+     * @return mixed
+     */
+    public function getPaymentDetails(array $cn_numbers)
+    {
+        // TODO: Implement getPaymentDetails() method.
+    }
+
+    /**
+     * @param array $filters
+     * @return mixed
+     */
+    public function getTariffDetails(array $filters)
+    {
+        // TODO: Implement getTariffDetails() method.
+    }
+
+    /**
+     * @param array $filters
+     * @return mixed
+     */
+    public function getShippingCharges(array $filters)
+    {
+        // TODO: Implement getShippingCharges() method.
+    }
+
+    /**
+     * @param array $filters
+     * @return mixed
+     */
+    public function getShipperDetails(array $filters)
+    {
+        // TODO: Implement getShipperDetails() method.
+    }
+
+    /**
+     * @param array $cn_numbers
+     * @return mixed
+     */
+    public function getElectronicPOD(array $cn_numbers)
+    {
+        // TODO: Implement getElectronicPOD() method.
+    }
+
+    /**
+     * @param array $filters
+     * @return mixed
+     */
+    public function getShipperAdviceListPaginated(array $filters)
+    {
+        // TODO: Implement getShipperAdviceListPaginated() method.
+    }
+
+    /**
+     * @param array $filters
+     * @return mixed
+     */
+    public function getActivityLog(array $filters)
+    {
+        // TODO: Implement getActivityLog() method.
+    }
+
+    /**
+     * @param array $payload
+     * @return mixed
+     */
+    public function updateShipperAdvice(array $payload)
+    {
+        // TODO: Implement updateShipperAdvice() method.
     }
 }

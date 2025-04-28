@@ -3,6 +3,9 @@
 return [
     'default' => 'tcs',
     'tcs' => [
+        'tcs_mode' => env('SWIFTSHIP_TCS_MODE', 'sandbox'),
+        'tcs_staging_url' => env('SWIFTSHIP_TCS_STAGING_URL','https://devconnect.tcscourier.com/auth/api/auth'),
+        'tcs_production_url' => env('SWIFTSHIP_TCS_PRODUCTION_URL','https://ociconnect.tcscourier.com/auth/api/auth'),
         'tcs_client_id' => env('SWIFTSHIP_TCS_CLIENT_ID',''),
         'tcs_base_url' => env('SWIFTSHIP_TCS_BASE_URL',''),
         'tcs_username' => env('SWIFTSHIP_TCS_USERNAME', ''),

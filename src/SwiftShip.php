@@ -8,6 +8,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Request;
 use JetBrains\PhpStorm\NoReturn;
 use Zfhassaan\SwiftShip\Interface\CourierClientInterface;
+use Zfhassaan\SwiftShip\Utility\Helper;
 
 /**
  * This package uses the third party apis integration and all the integration process is combined in a single package
@@ -18,6 +19,18 @@ class SwiftShip implements CourierClientInterface
 {
 
     protected mixed $selectedCourierClient; // Initialize as null
+
+    public static function make(string $courier): CourierClientInterface
+    {
+        $class = __NAMESPACE__ . "\\Couriers\\" . strtoupper($courier) . "\\" . strtoupper($courier) . "Client";
+
+        if (!class_exists($class)) {
+            throw new \Exception("Courier [$courier] is not supported.");
+        }
+
+        return (new self())->setCourierClient(new $class());
+    }
+
 
     /**
      * Set the selected courier service client.
@@ -105,7 +118,7 @@ class SwiftShip implements CourierClientInterface
 
     public function OriginsList()
     {
-        // TODO: Implement OriginsList() method.
+        return $this->selectedCourierClient->OriginsList();
     }
 
     /**
