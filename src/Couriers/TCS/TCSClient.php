@@ -10,6 +10,23 @@ use Zfhassaan\SwiftShip\Interface\CourierClientInterface;
 use Illuminate\Support\Facades\Validator;
 use Zfhassaan\SwiftShip\Utility\Helper;
 
+/*
+ * Overview:
+ * To test the complete set of product APIs and gain a better understanding of TCS API integration, visit:
+ * https://ociconnect.tcscourier.com/ecom/index.html
+ *
+ * Available APIs:
+ * Check the list of available APIs at: https://ociconnect.tcscourier.com/ecom/index.html
+ *
+ * Sandbox Access:
+ * Below is the link for UAT and production portals:
+ * https://devconnect.tcscourier.com/ecom/index.html
+ *
+ * Production Access:
+ * If you need production access, you must proceed with the successful UAT phase.
+ * Please note that production access approval/setup will take at least three working days.
+ * https://ociconnect.tcscourier.com/ecom/index.html
+ */
 class TCSClient implements CourierClientInterface
 {
     protected mixed $url;

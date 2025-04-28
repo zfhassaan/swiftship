@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Zfhassaan\SwiftShip\Interface\CourierClientInterface;
 use Zfhassaan\SwiftShip\Utility\Helper;
+use function PHPUnit\Framework\isEmpty;
 
 
 class LCSClient implements CourierClientInterface
@@ -218,7 +219,8 @@ class LCSClient implements CourierClientInterface
         if ($response['status'] == 0) {
             return Helper::failure('Unable to Cancel Booking', $response['error'], Response::HTTP_BAD_REQUEST);
         }
-        return Helper::success('Booking Response', $response);
+        $message = $response['status'] == 1 ? 'Booking Cancelled Successfully' : $response['message'] ?? '';
+        return Helper::success( $message, $response);
     }
 
     /**
@@ -250,9 +252,25 @@ class LCSClient implements CourierClientInterface
             'Content-Type' => 'application/json',
         ])->post($trackShipment, $data)->json();
 
+        $status = $response['status'] ?? 0;
+        $error = strtolower($response['error'] ?? '');
+        $packetList = $response['packet_list'] ?? null;
 
         if ($response['status'] == 0 || $response == null) {
-            return Helper::failure('Service Down. Error Tracking Shipment', $response ?? '', Response::HTTP_BAD_REQUEST);
+                if (str_contains($error, 'no packet found')) {
+                    return Helper::failure('No shipment found for the given reference.', '', Response::HTTP_NOT_FOUND);
+                }
+
+                if (str_contains($error, 'service down') || str_contains($error, 'connection') || str_contains($error, 'timeout')) {
+                    return Helper::failure('Courier service is temporarily unavailable. Please try again later.', '', Response::HTTP_SERVICE_UNAVAILABLE);
+                }
+
+                if (!$error || blank($error)) {
+                    return Helper::failure('Unexpected error. Please contact support.', '', Response::HTTP_BAD_REQUEST);
+                }
+
+                // fallback for any unrecognized 0-status error
+                return Helper::failure(ucfirst($error), '', Response::HTTP_BAD_REQUEST);
         }
         return Helper::success('Tracking Response', $response['packet_list']);
     }
@@ -387,6 +405,9 @@ class LCSClient implements CourierClientInterface
      */
     public function BatchBookPackets(array $orders): JsonResponse
     {
+        if(!$orders || isEmpty($orders) || empty($orders))
+            return Helper::failure('No Orders Found. Please provide Valid Packet Details');
+
         $packets = collect($orders)->map(function ($order, $index) {
             $this->validatePacket($order, $index);
             return $this->mapPacket($order);
